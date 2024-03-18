@@ -1,0 +1,38 @@
+{%extends 'Base.html'%}
+{%block title%}
+محصولات
+{%endblock%}
+{%block body%}
+<div>
+    <form method="post" action="{% url 'home:product_search' %}">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Search</button>
+    </form>
+    <h1>Produce</h1>
+        {% for data in category %}
+            <a href="{{data.get_absolute_url}}">{{data.name}}</a>
+            <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+                {% for info in data.sub.all %}
+                <li><a class="dropdown-item" href="{{info.get_absolute_url}}">{{info.name}}</a></li>
+                {%endfor%}
+            </ul>
+            </div>
+        {%endfor%}
+        {% for product in products %}
+            <h2>{{product.name}}</h2>
+            <a href="{{product.get_absolute_url}}">
+            <img src="{{ product.image.url }}" style="width:300px; height:300px;" alt=""><br>
+            </a>
+            {% if product.discount %}
+                <h5 style="text-decoration: line-through;color:red">{{product.unit_price}}</h5>
+                <h3 style="color:green">{{product.total_price}}</h3>
+            {%else%}
+                <h3>{{product.total_price}}</h3>
+            {%endif%}
+        {%endfor%}
+    {%endblock%}
+</div>

@@ -1,0 +1,16 @@
+{%extends 'Base.html'%}
+{% load static %}
+{%block title%}
+ثبت نام
+{%endblock%}
+{%block css%}
+<link rel="stylesheet" href="{% static 'accounts/register.css' %}" >
+{%endblock%}
+{%block body%}
+<h1>register</h1>
+    <form method="post" novalidate>
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit">register</button>
+    </form>
+{%endblock%}

@@ -1,0 +1,13 @@
+{%extends 'Base.html'%}
+{%block title%}
+صفحه اصلی
+{%endblock%}
+{%block body%}
+<h1>HOME PAGE</h1>
+    {% for cat in category %}
+        <a href="{{cat.get_absolute_url}}">
+            <h2>{{ cat.name }}</h2>
+        </a>
+        <img src="{{ cat.image.url }}" style="width:300px; height:300px;" alt="">
+    {%endfor%}
+{%endblock%}

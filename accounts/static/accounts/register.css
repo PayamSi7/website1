@@ -1,0 +1,28 @@
+form{
+    background-color: #c90000;
+    margin: 150px auto;
+    width: 400px;
+    padding: 40px;
+    text-align: right;
+    border-radius: 25px;
+}
+form label{
+    display: none;
+}
+form input{
+    text-align: center;
+    width: 300px;
+    height: 35px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    box-shadow: 5px rgb(35, 67, 71);
+}
+form button{
+    width: 200px;
+    height: 35px;
+    border: 2px solid transparent;
+    background-color: #36ec11;
+}
+form button:hover{
+    background-color: #08c1c7;
+}

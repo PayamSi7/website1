@@ -1,0 +1,12 @@
+{%extends 'Base.html'%}
+{%block title%}
+login
+{%endblock%}
+{%block body%}
+<h1>Login with phone number</h1>
+<form method="post" novalidate>
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit">send code</button>
+    </form>
+{%endblock%}
