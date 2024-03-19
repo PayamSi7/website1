@@ -49,8 +49,8 @@ class OderForm(ModelForm):
         fields = ['email', 'f_name', 'l_name', 'address']
         
         
-class Copon(models.Model):
-    code = models.CharField(max_length=100)
+class Coupon(models.Model):
+    code = models.CharField(max_length=110)
     active = models.BooleanField(default=False)
     start = models.DateTimeField()
     end = models.DateTimeField()

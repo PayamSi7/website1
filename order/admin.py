@@ -9,6 +9,11 @@ class ItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['user', 'email', 'f_name', 'l_name', 'address', 'create', 'paid', 'cost']
     inlines = [ItemInline]
+    
+    
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ['code', 'active', 'start', 'end', 'discount']
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(ItemOrder)
+admin.site.register(Coupon, CouponAdmin)

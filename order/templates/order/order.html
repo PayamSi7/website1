@@ -1,4 +1,12 @@
 {%extend 'Base.html'%}
 {% block body %}
+<div class="container">
 <h1>Order</h1>
+<h4> total price: {{ order.cost }}</h4><br>
+<form method='post'>
+    {% csrf_token %}
+    {{form}}
+    <button type="submit" class="btn btn-info">Coupon</button>
+</form>
+</div>
 {% endblock body %}

@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import *
 from cart.models import Cart
+from .forms import CouponForm
+
+
 def order_detail(request, order_id):
     order = Order.objects.get(id=order_id)
-    return render(request, 'order/order.html',{'order':order})
+    form = CouponForm()
+    return render(request, 'order/order.html',{'order':order, 'form':form})
 
 
 def order_create(request):
