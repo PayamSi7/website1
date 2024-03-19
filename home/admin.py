@@ -36,7 +36,7 @@ class SizeAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['user ', 'create', 'rate']
+    list_display = ['user', 'create', 'rate']
 
 
 

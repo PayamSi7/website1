@@ -3,11 +3,11 @@ from .models import *
 
 class ItemInline(admin.TabularInline):
     model = ItemOrder
-    readonly_fields = ['user', 'product', 'variant', 'size', 'color', 'quantity']
+    readonly_fields = ['user', 'product', 'variant', 'size', 'color', 'quantity', 'price']
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'f_name', 'l_name', 'address', 'create', 'paid']
+    list_display = ['user', 'email', 'f_name', 'l_name', 'address', 'create', 'paid', 'cost']
     inlines = [ItemInline]
 
 admin.site.register(Order, OrderAdmin)
