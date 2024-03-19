@@ -3,7 +3,7 @@
 <div class="container">
 <h1>Order</h1>
 <h4> total price: {{ order.cost }}</h4><br>
-<form method='post'>
+<form method='post' action="{% url 'order:coupon' order.id %}">
     {% csrf_token %}
     {{form}}
     <button type="submit" class="btn btn-info">Coupon</button>

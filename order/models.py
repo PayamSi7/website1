@@ -19,6 +19,9 @@ class Order(models.Model):
     
     def cost(self):
         total = sum( i.price() for i in self.order_item.all())
+        if self.discount:
+            discount_price = (self.discount/100) * total
+            return int(total-discount_price)
         return total
 
 class ItemOrder(models.Model):
