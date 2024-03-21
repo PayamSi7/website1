@@ -46,14 +46,18 @@ def coupon(request, order_id):
 
 """
 client = Client('#')
-amount = 1000  # Rial / Required
+# this line will be delete --{amount = 1000  # Rial / Required}
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
 phone = 'YOUR_PHONE_NUMBER'  # Optional
 # Important: need to edit for realy server.
 CallbackURL = 'http://127.0.0.1:8080/verify/'
+"""
 
-
-def send_request(request):
+def send_request(request, price):
+    pass
+    """
+    global amount
+    amount = price
     data = {
     #    "MerchantID": settings.MERCHANT,
         "Amount": amount,
@@ -80,8 +84,10 @@ def send_request(request):
     #except requests.exceptions.ConnectionError:
     #    return {'status': False, 'code': 'connection error'}
 
-
+"""
 def verify(authority):
+    pass
+    """
     data = {
     #    "MerchantID": settings.MERCHANT,
         "Amount": amount,
