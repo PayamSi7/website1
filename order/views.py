@@ -5,7 +5,7 @@ from .forms import CouponForm
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.contrib import messages
-from suds import Client
+#from suds import Client
 
 
 def order_detail(request, order_id):
@@ -16,7 +16,7 @@ def order_detail(request, order_id):
 
 def order_create(request):
     if request.method == 'POST':
-        form = OrderForm(request.POST)
+        form = CouponForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             order = Order.objects.created(user_id=request.user.id, email=data['email'], f_name=data['f_name'],
@@ -44,7 +44,7 @@ def coupon(request, order_id):
         order.save()
     return redirect('order:order_detail', order_id)
 
-
+"""
 client = Client('#')
 amount = 1000  # Rial / Required
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
@@ -99,7 +99,7 @@ def verify(authority):
         else:
             return {'status': False, 'code': str(response['Status'])}
     return response
-
+"""
 
 
 
