@@ -45,49 +45,55 @@ def coupon(request, order_id):
     return redirect('order:order_detail', order_id)
 
 """
+part41
 client = Client('#')
-# this line will be delete --{amount = 1000  # Rial / Required}
+ this line will be delete --{amount = 1000  # Rial / Required}
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
 phone = 'YOUR_PHONE_NUMBER'  # Optional
-# Important: need to edit for realy server.
-CallbackURL = 'http://127.0.0.1:8080/verify/'
+ Important: need to edit for realy server.
+CallbackURL = 'http://127.0.0.1:8080/order:verify/'
 """
 
-def send_request(request, price):
+def send_request(request,order_id, price):
     pass
     """
+part41
     global amount
     amount = price
     data = {
-    #    "MerchantID": settings.MERCHANT,
+        "MerchantID": settings.MERCHANT,
         "Amount": amount,
         "Description": description,
         "Phone": phone,
         "CallbackURL": CallbackURL,
     }
-    #data = json.dumps(data)
-    # set content length by data
+    data = json.dumps(data)
+     set content length by data
     headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-    #try:
-    #    response = requests.post(ZP_API_REQUEST, data=data,headers=headers, timeout=10)
+    try:
+        response = requests.post(ZP_API_REQUEST, data=data,headers=headers, timeout=10)
 
-    #    if response.status_code == 200:
-    #        response = response.json()
-    #        if response['Status'] == 100:
-    #            return {'status': True, 'url': ZP_API_STARTPAY + str(response['Authority']), 'authority': response['Authority']}
-    #        else:
-    #            return {'status': False, 'code': str(response['Status'])}
-    #    return response
+        if response.status_code == 200:
+            response = response.json()
+            if response['Status'] == 100:
+                return {'status': True, 'url': ZP_API_STARTPAY + str(response['Authority']), 'authority': response['Authority']}
+           else:
+                order = Order.objects.get(id=order_id)
+                order.paid = True
+                order.save()
+                return {'status': False, 'code': str(response['Status'])}
+        return response
     
-    #except requests.exceptions.Timeout:
-    #    return {'status': False, 'code': 'timeout'}
-    #except requests.exceptions.ConnectionError:
-    #    return {'status': False, 'code': 'connection error'}
+    except requests.exceptions.Timeout:
+        return {'status': False, 'code': 'timeout'}
+    except requests.exceptions.ConnectionError:
+        return {'status': False, 'code': 'connection error'}
 
 """
 def verify(authority):
     pass
     """
+part 41
     data = {
     #    "MerchantID": settings.MERCHANT,
         "Amount": amount,

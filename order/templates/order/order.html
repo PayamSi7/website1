@@ -8,5 +8,6 @@
     {{form}}
     <button type="submit" class="btn btn-info">Coupon</button>
 </form>
+    <a herf="{% url 'order:request' order.id order.cost%}"></a>
 </div>
 {% endblock body %}
