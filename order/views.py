@@ -81,6 +81,16 @@ part41
                 order = Order.objects.get(id=order_id)
                 order.paid = True
                 order.save()
+                cart = ItemOrder.objects.filter(order_id=order_id)
+                for c in cart:
+                    if product.status == 'None':
+                        product = Product.objects.get(id=c.product.id)
+                        product.amount -= c.quantity
+                        product.save()
+                    else:
+                        variant = Variant.objects.get(id=c.variant.id)
+                        variant.amount -= c.quantity
+                        variant.save()
                 return {'status': False, 'code': str(response['Status'])}
         return response
     
