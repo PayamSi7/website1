@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from random import randint
 #import ghasedak
 from django.core.mail.message import EmailMessage
+from django.views import View
 
 
 
@@ -24,12 +25,12 @@ def user_register(request):
             messages.success(request, 'خوش آمدید ثبت نام با موفقیت انجام شد', 'primary')
             user.is_active = False
             user.save()
-            email = EmailMessage{
+            email = EmailMessage[
                 'active user',
                 'hello user',
                 'test<>',
                 [data['email_address']]
-            }
+            ]
             email.send(fail_silently=False)
             return redirect('home:home')
     else:
@@ -62,6 +63,11 @@ def user_logout(request):
     logout(request)
     messages.success(request, 'با موفقیت خارج شدید', 'warning')
     return redirect('home:home')
+
+class RegisterEmail(View):
+    def get(self.request):
+        pass
+        return redirect('accounts:login')
 
 @login_required(login_url='accounts:login')
 def user_profile(request):

@@ -11,4 +11,5 @@ urlpatterns =[
     path('change/', views.change_password, name='change'),
     path('phone_login/', views.phone_login, name='phone_login'),
     path('verify/', views.verify, name='verify'),
+    path('active/', views.RegisterEmail.as_view(), name='active')
 ]
