@@ -9,6 +9,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from random import randint
 #import ghasedak
+from django.core.mail.message import EmailMessage
 
 
 
@@ -18,9 +19,18 @@ def user_register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            User.objects.create_user(username=data['user_name'], email=data['email_address'],
+            user = User.objects.create_user(username=data['user_name'], email=data['email_address'],
                                      password=data['password2'])
             messages.success(request, 'خوش آمدید ثبت نام با موفقیت انجام شد', 'primary')
+            user.is_active = False
+            user.save()
+            email = EmailMessage{
+                'active user',
+                'hello user',
+                'test<>',
+                [data['email_address']]
+            }
+            email.send(fail_silently=False)
             return redirect('home:home')
     else:
         form = UserRegisterForm()
