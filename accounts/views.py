@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.shortcuts import render, redirect, reverse
 from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -9,11 +10,20 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from random import randint
 #import ghasedak
-from django.core.mail.message import EmailMessage
+from django.core.mail import EmailMessage
 from django.views import View
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from six import text_type
 
 
-
+class EmailToken(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user: AbstractBaseUser, timestamp: int):
+        return (text_type(user.is_active)+text_type(user.id)+text_type(user.timestamp))
+    
+email_generator = EmailToken()
 
 def user_register(request):
     if request.method == 'POST':
@@ -22,21 +32,35 @@ def user_register(request):
             data = form.cleaned_data
             user = User.objects.create_user(username=data['user_name'], email=data['email_address'],
                                      password=data['password2'])
-            messages.success(request, 'خوش آمدید ثبت نام با موفقیت انجام شد', 'primary')
             user.is_active = False
             user.save()
+            domain = get_current_site(request).domain
+            uidb64 = urlsafe_base64_encode(force_bytes(user.id))
+            url = reverse('accounts:active', kwarg={'uidb64':uidb64, 'token':email_generator.make_token(user)})
+            link = 'http://' + domain + url
             email = EmailMessage[
                 'active user',
-                'hello user',
+                link,
                 'test<>',
                 [data['email_address']]
             ]
             email.send(fail_silently=False)
+            messages.success(request, 'کاربر محترم جهت فعال سازی به ایمیل خود  مراجعه کنید', 'primary')
             return redirect('home:home')
     else:
         form = UserRegisterForm()
         context = {'form': form}
     return render(request, 'accounts/register.html', {'form': form})
+
+class RegisterEmail(View):
+    def get(self.request, uidb64, token):
+        id = force_text(urlsafe_base64_decode('uidb64'))
+        user = User.objects.get(id=id)
+        if user and email_generator.check_token(user, 'token'):
+            user.is_active = True
+            user.save()
+            return redirect('accounts:login')
+    
 def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
@@ -63,11 +87,6 @@ def user_logout(request):
     logout(request)
     messages.success(request, 'با موفقیت خارج شدید', 'warning')
     return redirect('home:home')
-
-class RegisterEmail(View):
-    def get(self.request):
-        pass
-        return redirect('accounts:login')
 
 @login_required(login_url='accounts:login')
 def user_profile(request):
