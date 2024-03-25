@@ -4,21 +4,30 @@
 {%endblock%}
 {%block body%}
 <h1>Profile</h1>
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h6 class="card-subtitle mb-2 text-body-secondary">User : {{ profile.User.username }}</h6>
-      <h6 class="card-subtitle mb-2 text-body-secondary">FirstName : {{ profile.User.first_name }}</h6>
-      <h6 class="card-subtitle mb-2 text-body-secondary">LastName : {{ profile.User.last_name }}</h6>
-      <h6 class="card-subtitle mb-2 text-body-secondary">Email : {{ profile.User.email }}</h6>
-      <h6 class="card-subtitle mb-2 text-body-secondary">Phone : {{ profile.phone }}</h6>
-      <h6 class="card-subtitle mb-2 text-body-secondary">Address : {{ profile.address }}</h6>
-      <tr>
-        <th> <a href="{%url 'accounts:update'%}">update</a></th>
-     </tr>
-      <tr>
-         <th><a href="{%url 'accounts:change'%}">تغییر رمز عبور</a></th>
-     </tr>
+<div class="container mt-5">
+  <div class="col-6">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-body-secondary">User : {{ profile.User.username }}</h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">FirstName : {{ profile.User.first_name }}</h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">LastName : {{ profile.User.last_name }}</h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Email : {{ profile.User.email }}</h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Phone : {{ profile.phone }}</h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Address : {{ profile.address }}</h6>
+        <tr>
+          <th> <a href="{%url 'accounts:update'%}">update</a></th>
+       </tr>
+        <tr>
+           <th><a href="{%url 'accounts:change'%}">تغییر رمز عبور</a></th>
+       </tr>
+      </div>
     </div>
   </div>
+  </div>
+  <div class="col-6">
+    <img src="{{Profile.profile_image.url}}" style="width:300px;heigth:300px;"
+  </div>
+</div>
+  
     
 {%endblock%}

@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from phone_field import PhoneField
+
 
 class Profile(models.Model):
     User = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.IntegerField(null=True, blank=True)
     address = models.CharField(max_length=300, null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile/',  null=True, blank=True)
+    #you can to use from default in profile_image
 
     def __str__(self):
         return self.User.username
