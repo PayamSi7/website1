@@ -1,0 +1,10 @@
+{%extends 'Base.html'%}
+{%block body%}
+<div class='container mt-5'>
+    <form method="post" novalidate>
+        {%csrf_token%}
+        {{form}}
+        <button type="submit">send email</button>
+    </form>
+</div>
+{% endblock %}

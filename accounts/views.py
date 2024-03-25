@@ -1,5 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -17,7 +17,8 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
-
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy, reverse
 
 class EmailToken(PasswordResetTokenGenerator):
     def _make_hash_value(self, user: AbstractBaseUser, timestamp: int):
@@ -53,10 +54,10 @@ def user_register(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 class RegisterEmail(View):
-    def get(self.request, uidb64, token):
-        id = force_text(urlsafe_base64_decode('uidb64'))
+    def get(request, uidb64, token):
+        id = (force_text(urlsafe_base64_decode(uidb64)))
         user = User.objects.get(id=id)
-        if user and email_generator.check_token(user, 'token'):
+        if user and email_generator.check_token(user, token):
             user.is_active = True
             user.save()
             return redirect('accounts:login')
@@ -161,3 +162,21 @@ def verify(request):
     else:
         form = CodeForm(request.user)
     return render(request, 'accounts/verify.html', {'form': form})
+
+class ResetPassword(auth_views.PasswordResetView):
+    template_name ='accounts:reset.html'
+    success_url = reverse_lazy('accounts:reset_done')
+    email_template_name = 'acconts:link.html'
+    
+class DonePassword(auth_views.PasswordResetDoneView):
+    template_name = 'accounts:done.html'
+
+
+class ConfirmPassword(auth_views.PasswordResetConfirmView):
+    template_name = 'accounts:complete.html'
+
+
+class Complete(auth_views.PasswordResetCompleteView):
+    template_name = 'accounts:complete.html'
+
+

@@ -1,0 +1,12 @@
+{%extends 'Base.html'%}
+{%block body%}
+<div class='container mt-5'>
+    <form method="post" novalidate>
+        {%if validlink%}
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit">change password</button>
+    </form>
+    {%endif%}
+</div>
+{% endblock %}
