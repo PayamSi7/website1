@@ -11,7 +11,7 @@ class Category(models.Model):
     sub_cat = models.BooleanField(default=False)
     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True)
     name = models.CharField(max_length=200, verbose_name = 'اسم')
-    create = models.DateTimeField(auto_now_add=True)#pip install django-jalali
+    create = models.DateTimeField(auto_now_add=True)#pip install django-jalali  {part47 jalali calender}
     update = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='category', null=True, blank=True)
 

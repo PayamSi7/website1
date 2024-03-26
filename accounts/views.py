@@ -166,11 +166,11 @@ def verify(request):
 
 def favorite(request):
     product = request.user.fa_user.all()    
-    return render(request, 'accounts/favorite.html' {'product':product})
+    return render(request, 'accounts/favorite.html', {'product':product })
 
 def history(request):
     data = ItemOrder.objects.filter(user_id=request.user.id)
-    return render( request,'account/history.html'{'data':data } )
+    return render( request,'account/history.html',{'data':data } )
 
 
         
