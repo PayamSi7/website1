@@ -1,4 +1,12 @@
 {%extends 'Base.html'%}
 {%block body%}
-
+<div class="container">
+    <div class="card mt-5 p-5">
+        {% for i in product%}
+            <a href="{% url 'home:detail' i.id%}"><img src="{{i.image.url}}" style="width: 200px; height: 250px;"></a>
+            <h2>{{i.name}}</h2>
+            <hr>
+            {%endfor%}
+    </div>
+</div>
 {%endblock%}

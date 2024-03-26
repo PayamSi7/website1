@@ -17,4 +17,5 @@ urlpatterns = [
     path('confirm/<uidb64>/<token>/', views.ConfirmPassword.as_view(), name='password_reset_confirm'),
     path('confirm/done/', views.Complete.as_view(), name='complete'),
     path('favorite/', views.favorite, name='favorite'),
+    path('history/', views.history, name='history'),
 ]

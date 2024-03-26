@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.shortcuts import render, redirect
 from .forms import *
+from order.models import ItemOrder
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -167,6 +168,9 @@ def favorite(request):
     product = request.user.fa_user.all()    
     return render(request, 'accounts/favorite.html' {'product':product})
 
+def history(request):
+    data = ItemOrder.objects.filter(user_id=request.user.id)
+    return render(request,'account/history.html'{'data':data})
  
 class ResetPassword(auth_views.PasswordResetView):
     template_name ='accounts:reset.html'

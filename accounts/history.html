@@ -1,0 +1,16 @@
+{%extends 'Base.html'%}
+{%block body%}
+<div class="container">
+    <div class="card mt-5 p-5">
+        {% for i in data%}
+            <h2>name: {{i.product.name}} &nbsp; price:{{i.order.get_price}}</h2>
+            <img src="{{i.product.image.url}}" style="width: 200px; height: 250px;">
+            <h2>naddress: {{i.order.address}} &nbsp; price:{{i.order.get_price}}</h2>
+            <a href="{% url 'home:detail' i.id%}"><img src="{{i.image.url}}" style="width: 200px; height: 250px;"></a>
+        {%else%}
+            <h2>{{i.name}}</h2>
+            <hr>
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}
