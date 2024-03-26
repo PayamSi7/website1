@@ -170,7 +170,7 @@ def favorite(request):
 
 def history(request):
     data = ItemOrder.objects.filter(user_id=request.user.id)
-    return render(request,'account/history.html'{'data':data})
+    return render( request,'account/history.html'{'data':data } )
  
 class ResetPassword(auth_views.PasswordResetView):
     template_name ='accounts:reset.html'
