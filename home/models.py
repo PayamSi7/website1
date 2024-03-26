@@ -10,8 +10,8 @@ class Category(models.Model):
     sub_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='sub')
     sub_cat = models.BooleanField(default=False)
     slug = models.SlugField(allow_unicode=True, unique=True, null=True, blank=True)
-    name = models.CharField(max_length=200)
-    create = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=200, verbose_name = 'اسم')
+    create = models.DateTimeField(auto_now_add=True)#pip install django-jalali
     update = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='category', null=True, blank=True)
 
@@ -22,7 +22,9 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('home:category', args=[self.slug, self.id])
 
-
+    class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
 
 class Product(models.Model):
     VARIANT = (

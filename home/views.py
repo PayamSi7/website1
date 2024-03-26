@@ -5,6 +5,8 @@ from django.contrib import messages
 from .forms import*
 from django.db.models import Q
 from cart.models import *
+from django.core.mail import EmailMessage
+
 
 def home(request):
     category = Category.objects.filter(sub_cat=True)
@@ -154,7 +156,20 @@ def favorite_product(request, id):
         is_favorite = True
     return redirect(url)
 
-
+def contact(request):
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        email = request.POST['email']
+        msg = request.POST['measage']
+        body = subject + '\n' + email + '\n' + msg
+        form = EmailMessage(
+            'contact form',#email title
+            body,#email text
+            'test',#
+            ('',),#your email address 
+        )
+        form.send(fail_silently=False)
+    return render(request, 'home/contact.html')
 
 
 

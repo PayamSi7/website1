@@ -18,4 +18,5 @@ urlpatterns = [
     path('confirm/done/', views.Complete.as_view(), name='complete'),
     path('favorite/', views.favorite, name='favorite'),
     path('history/', views.history, name='history'),
+    path('contact/', views.contact, name='contact'),
 ]
