@@ -138,8 +138,17 @@ def product_search(request):
         pass
         
 
-
-
+def favorite_product(request, id):
+    url = request.META.get('HTTP_REFERER')
+    product = Product.objects.filter(id=id)
+    is_favorite = False
+    if Product.favorite.filter(id=request.user.id).exists():
+        Product.favorite.remove(request.user)
+        is_favorite = False
+    else:
+        Product.favorite.add(request.user)
+        is_favorite = True
+    return redirect(url)
 
 
 
