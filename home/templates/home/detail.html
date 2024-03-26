@@ -9,13 +9,18 @@
 {%block body%}
 <div class="container">
     <h1>{{product.name}}</h1>
-    <h4>Rate : {{ product.total_price }}</h4><br>
+    <h4>Rate : {{ product.total_like }}</h4><br>
     <img src="{{product.image.url}}" style="width:300px; height:300px;" alt=""><br>
     <p>{{product.information|safe}}</p>
      <div class="row">
         {%for img in image%}
             <img src="{{img.image.url}}" style="width:250px;height:240;" >
         {%endfor%}
+        {%if is_favorite%}
+            <a href="{% url 'home:favorite%' product.id}"><i class="fa fa-heart" style="color: red; font-size:24px"></i></a>
+        {%else%}
+            <a href="{% url 'home:favorite%' product.id}"><i class="fa fa-heart-o" style="color: red; font-size:24px"></i></a>
+        {%endif%}
     </div>
     <small>like :{{product.total_like}}</small>
 

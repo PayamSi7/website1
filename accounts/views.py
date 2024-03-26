@@ -163,6 +163,11 @@ def verify(request):
         form = CodeForm(request.user)
     return render(request, 'accounts/verify.html', {'form': form})
 
+def favorite(request):
+    product = request.user.fa_user.all()    
+    return render(request, 'accounts/favorite.html' {'product':product})
+
+ 
 class ResetPassword(auth_views.PasswordResetView):
     template_name ='accounts:reset.html'
     success_url = reverse_lazy('accounts:reset_done')

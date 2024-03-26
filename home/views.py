@@ -39,7 +39,11 @@ def Product_detail(request,id=None):
     is_unlike = False
     if product.unlike.filter(id=request.user.id).exists():
         is_unlike = False
-
+    
+    is_favorite = False
+    if Product.favorite.filter(id=request.user.id).exists():
+        is_favorite = True
+        
     if product.status is not None:
         if request.method == 'POST':
             variant = Variants.objects.filter(product_variant_id=id)
@@ -50,11 +54,11 @@ def Product_detail(request,id=None):
             variants = Variants.objects.get(id=variant[0].id)
         cont = {'product': product, 'variant': variant, 'variants': variants, 'similar': similar, 'is_like': is_like,
                 'is_unlike': is_unlike, 'comment_form': comment_form,'comment': comment, 'reply_form': reply_form,
-                'image': image, 'cart_form': cart_form}
+                'image': image, 'cart_form': cart_form, 'is_favorite': is_favorite}
         return render(request, 'home/detail.html', cont)
 
     else:
-        return render(request, 'home/detail.html', {'product': product, 'similar': similar,
+        return render(request, 'home/detail.html', {'product': product, 'similar': similar,'is_favorite': is_favorite,
                                                     'is_like': is_like, 'is_unlike': is_unlike, 'comment': comment,
                                                     'comment_form': comment_form, 'reply_form': reply_form,
                                                     'image': image, 'cart_form': cart_form})
