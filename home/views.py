@@ -7,7 +7,7 @@ from django.db.models import Q, Max, Min
 from cart.models import *
 from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
-
+from .filters import ProductFilter
 
 def home(request):
     category = Category.objects.filter(sub_cat=True)
@@ -15,6 +15,12 @@ def home(request):
 
 def All_product(request, slug=None, id= None):
     products = Product.objects.all()
+    min = Product.objects.aaggregate(unit_price=Min('unit_price'))
+    min_price = int(Min['unit_price'])
+    max = Product.objects.aaggregate(unit_price=Max('unit_price'))
+    max_price = int(Max['unit_price'])
+    filter = ProductFilter(request.GET, queryset=products)
+    products = filter.qs
     paginator = Paginator(products, 3)
     page_num = request.GET.get('page')
     page_obj = paginator.get_page(page_num)

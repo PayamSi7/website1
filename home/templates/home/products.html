@@ -23,7 +23,14 @@
             </ul>
             </div>
         {%endfor%}
+        <div class="row mt-4">
+            <div class="col-3">
+                filter
+            </div>               
+        <div class="col-9">
+        <div class="row">
         {% for product in products %}
+        <div class="col-3">
             <h2>{{product.name}}</h2> 
             <a href="{{product.get_absolute_url}}">
             {%thumbnail product.image '250*250' as img%}
@@ -36,7 +43,13 @@
             {%else%}
                 <h3>{{product.total_price}}</h3>
             {%endif%}
+        </div>
         {%endfor%}
+            </div>
+            </div>
+        </div>
+    </div>
+
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -63,7 +76,7 @@
                {%endif%}
             </ul>
           </nav>
-
-    {%endblock%}
 </div>
+    {%endblock%}
+
   
