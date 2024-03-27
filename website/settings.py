@@ -41,13 +41,13 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'cart.apps.CartConfig',
     'order.apps.OrderConfig',
-    'phone_field',
+    #'phone_field',
     #'ckeditor',
     #'ckeditor_uploader',
     'taggit',
     'sorl-thumbnail',
     #'django-jalali',
-    'django-filters',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
