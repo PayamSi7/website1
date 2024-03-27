@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib import messages
 from .forms import*
-from django.db.models import Q
+from django.db.models import Q, Max, Min
 from cart.models import *
 from django.core.mail import EmailMessage
 from django.core.paginator import Paginator

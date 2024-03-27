@@ -43,6 +43,9 @@ class Product(models.Model):
     update = models.DateTimeField(auto_now=True)
     tags = TaggableManager(blank=True)
     available = models.BooleanField(default=True)
+    color = models.ManyToManyField('Color',blank=True)
+    size = models.ManyToManyField('Size',blank=True)
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, blank=True,null=True)
     status = models.CharField(blank=True, null=True, max_length=200, choices=VARIANT)
     image = models.ImageField(upload_to='Product', blank=True, null=True)
     like = models.ManyToManyField(User, blank=True, related_name='product_like')
@@ -144,3 +147,13 @@ class Images(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     name = models.CharField(max_length=25, blank=True, null=True)
     image = models.ImageField(upload_to='image/', blank=True)
+    
+    
+    
+class Brand(models.Model):
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
+    
+    

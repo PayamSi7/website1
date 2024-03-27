@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'taggit',
     'sorl-thumbnail',
     #'django-jalali',
+    'django-filters',
 ]
 
 MIDDLEWARE = [
