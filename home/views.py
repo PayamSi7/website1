@@ -6,6 +6,7 @@ from .forms import*
 from django.db.models import Q
 from cart.models import *
 from django.core.mail import EmailMessage
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -14,6 +15,11 @@ def home(request):
 
 def All_product(request, slug=None, id= None):
     products = Product.objects.all()
+    paginator = Paginator(products, 3)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+    s_form = SearchForm()
+    category = Category.objects.filter(sub_cat=False)
     form = SearchForm
     if 'search' in request.GET:
         form = SearchForm(request.POST)
@@ -23,8 +29,11 @@ def All_product(request, slug=None, id= None):
     category = Category.objects.filter(sub_cat=True)
     if slug and id:
         data = get_object_or_404(Category, slug=slug, id=id)
-        products = products.filter(category=data)
-    return render(request, 'home/products.html', {'products': products, 'category': category,'form':form})
+        page_obj = products.filter(category=data)
+        paginator = Paginator(page_obj, 3)
+        page_num = request.GET.get('page')
+        page_obj = paginator.get_page(page_num)
+    return render(request, 'home/products.html', {'products': page_obj, 'category': category,'form':form})
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)

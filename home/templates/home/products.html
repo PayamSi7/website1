@@ -37,5 +37,33 @@
                 <h3>{{product.total_price}}</h3>
             {%endif%}
         {%endfor%}
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              {% if priducts.has_Previous%}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{priducts.Previous_page_number}}">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{priducts.Previous_page_number}}">{{priducts.Previous_page_number}}</a>
+                </li>
+               {%endif%}
+               
+               <li class="page-item">
+                <a class="page-link" href="?page={{priducts.number}}">{{priducts.number}}</a>
+               </li>
+
+               {% if priducts.has_Next%}
+               <li class="page-item">
+                <a class="page-link" href="?page={{priducts.Next_page_number}}">{{priducts.Next_page_number}}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{priducts.Next_page_number}}">Next</a>
+                </li>
+               {%endif%}
+            </ul>
+          </nav>
+
     {%endblock%}
 </div>
+  
