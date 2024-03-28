@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #'ckeditor',
     #'ckeditor_uploader',
     'taggit',
-    'sorl-thumbnail',
+    'sorl.thumbnail',
     #'django-jalali',
     'django_filters',
 ]

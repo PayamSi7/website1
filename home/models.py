@@ -5,6 +5,8 @@ from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.db.models import Avg
+from sorl.thumbnail import ImageField
+
 
 class Category(models.Model):
     sub_category = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='sub')
@@ -47,7 +49,7 @@ class Product(models.Model):
     size = models.ManyToManyField('Size',blank=True)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, blank=True,null=True)
     status = models.CharField(blank=True, null=True, max_length=200, choices=VARIANT)
-    image = models.ImageField(upload_to='Product', blank=True, null=True)
+    image = ImageField(upload_to='Product', blank=True, null=True)
     like = models.ManyToManyField(User, blank=True, related_name='product_like')
     total_like = models.IntegerField(default=0)
     unlike = models.ManyToManyField(User, blank=True, related_name='product_unlike')

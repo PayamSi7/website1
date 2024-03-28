@@ -1,12 +1,12 @@
 from django.contrib import admin
 from .models import *
-import admin_thumbnails
+
 
 class ProductVariantInlines(admin.TabularInline):
     model = Variants
     extra = 2
 
-@admin_thumbnails.thumbnail('image')
+
 class ImagesInlines(admin.TabularInline):
     model = Images
     extra = 2
