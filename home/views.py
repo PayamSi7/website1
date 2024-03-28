@@ -16,9 +16,9 @@ def home(request):
 def All_product(request, slug=None, id= None):
     products = Product.objects.all()
     min = Product.objects.aaggregate(unit_price=Min('unit_price'))
-    min_price = int(Min['unit_price'])
+   # min_price = int(Min('unit_price'))
     max = Product.objects.aaggregate(unit_price=Max('unit_price'))
-    max_price = int(Max['unit_price'])
+   # max_price = int(Max('unit_price'))
     filter = ProductFilter(request.GET, queryset=products)
     products = filter.qs
     paginator = Paginator(products, 3)
@@ -39,7 +39,8 @@ def All_product(request, slug=None, id= None):
         paginator = Paginator(page_obj, 3)
         page_num = request.GET.get('page')
         page_obj = paginator.get_page(page_num)
-    return render(request, 'home/products.html', {'products': page_obj, 'category': category,'form':form})
+    return render(request, 'home/products.html', {'products': page_obj, 'category': category,'form':form,
+                                                  'min':min, 'max':max, 'filter':filter})
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)
