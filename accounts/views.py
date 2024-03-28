@@ -13,7 +13,7 @@ from random import randint
 #import ghasedak
 from django.core.mail import EmailMessage
 from django.views import View
-from django.utils.encoding import force_bytes,force_text, force_str
+from django.utils.encoding import force_bytes, force_str # , force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
