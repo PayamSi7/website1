@@ -25,7 +25,34 @@
         {%endfor%}
         <div class="row mt-4">
             <div class="col-3">
-                filter
+                <form>
+                    <label for="">Price :
+                        <div class="multi-range" data-lbound="10" data-ubound="50">
+                            <hr/>
+                            <input type="range" name='price_1'
+                            min = '{{min_price}}' max='{{max_price}}' step='5000' value='{{min_price}}'
+                            oninput='this.parentNode.dataset.lbound=this.value;'
+                            />
+                            <input type="range" name='price_2'
+                            min = '{{min_price}}' max='{{max_price}}' step='5000' value='{{max_price}}'
+                            oninput='this.parentNode.dataset.ubound=this.value;'
+                            />
+                        </div>
+                    </label><br>
+                    <label for="">brand :
+                        {{filter.form.brand}}
+                    </label><br>
+
+                    <label for="">size :
+                        {{filter.form.size}}
+                    </label><br>
+
+                    <label for="">color :
+                        {{filter.form.color}}
+                    </label><br>
+
+                    <button type='submit' class="btn btn-danger">filter</button>
+                </form>
             </div>               
         <div class="col-9">
         <div class="row">
