@@ -57,7 +57,7 @@ CallbackURL = 'http://127.0.0.1:8080/order:verify/'
 def send_request(request,order_id, price):
     global amount
     amount = price
-    result = client.service.PaymentVerification( request.GET['Authority'], amount)
+    result = client.service.PaymentVerification(amount,description,request.user.email, CallbackURL)
     if result.Status == 100:
         return redirect('https://www.zarinpal.com/pg/Startpay/'+str(result.Authority))
         
@@ -76,13 +76,8 @@ def send_request(request,order_id, price):
 
 def verify(authority):
     
-    if response.status_code == 200:
-        response = response.json()
-        if response['Status'] == 100:
-            return {'status': True, 'RefID': response['RefID']}
-        else:
-            return {'status': False, 'code': str(response['Status'])}
-    return response
+    if request.GET.get('Status') == 'OK':
+        result = client.service.PaymentVerification( request.GET['Authority'], amount)
 
 
 
