@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from .models import *
 from cart.models import Cart
 from .forms import CouponForm
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.contrib import messages
-#from suds import Client
+from suds import Client
 
 
 def order_detail(request, order_id):
