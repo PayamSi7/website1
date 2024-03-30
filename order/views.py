@@ -74,11 +74,17 @@ def send_request(request,order_id, price):
             return HttpResponse('error code: '+str(result.Status))
 
 
-def verify(authority):
+def verify(request):
     
     if request.GET.get('Status') == 'OK':
         result = client.service.PaymentVerification( request.GET['Authority'], amount)
-
-
+        if result.Status == 100:
+            return HttpResponse('Transaction success')
+        elif result.Status == 101:
+            return HttpResponse('Transaction submitted: '+str(result.Status))
+        else:
+            return HttpResponse('Transaction failed: '+str(result.Status))
+    else:
+        return HttpResponse('Transaction failed or canceled by user')
 
 

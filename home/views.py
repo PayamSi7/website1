@@ -166,9 +166,13 @@ def favorite_product(request, id):
     is_favorite = False
     if Product.favorite.filter(id=request.user.id).exists():
         Product.favorite.remove(request.user)
+        product.total_favorite -= 1
+        product.save()
         is_favorite = False
     else:
         Product.favorite.add(request.user)
+        product.total_favorite += 1
+        product.save()
         is_favorite = True
     return redirect(url)
 

@@ -55,6 +55,7 @@ class Product(models.Model):
     unlike = models.ManyToManyField(User, blank=True, related_name='product_unlike')
     total_unlike = models.IntegerField(default=0)
     favorite = models.ManyToManyField(User, blank=True, related_name="fa_user") 
+    total_favorite = models.PositiveIntegerField(default=0)
     sell = models.IntegerField(default=0)
 
     def average(self):
