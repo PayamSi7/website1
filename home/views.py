@@ -8,6 +8,8 @@ from cart.models import *
 from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from .filters import ProductFilter
+from urllib.parse import urlencode
+
 
 def home(request):
     category = Category.objects.filter(sub_cat=True)
@@ -23,6 +25,9 @@ def All_product(request, slug=None, id= None):
     products = filter.qs
     paginator = Paginator(products, 3)
     page_num = request.GET.get('page')
+    data = request.GET.copy()
+    if 'page' in data:
+        del data['page']
     page_obj = paginator.get_page(page_num)
     s_form = SearchForm()
     category = Category.objects.filter(sub_cat=False)
@@ -40,7 +45,7 @@ def All_product(request, slug=None, id= None):
         page_num = request.GET.get('page')
         page_obj = paginator.get_page(page_num)
     return render(request, 'home/products.html', {'products': page_obj, 'category': category,'form':form,
-                                                  'min':min, 'max':max, 'filter':filter})
+                                                  'min':min, 'max':max, 'filter':filter, 'data':urlencode(data)})
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)

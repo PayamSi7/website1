@@ -50,6 +50,13 @@
                     <label for="">color :
                         {{filter.form.color}}
                     </label><br>
+                    <div style="display: none">
+                        {{filter.form.price}}
+                        {{filter.form.create}}
+                        {{filter.form.discount}}
+                        {{filter.form.sell}}
+                        {{filter.form.favorit}}
+                    </div>
 
                     <button type='submit' class="btn btn-danger">filter</button>
                 </form>
@@ -63,6 +70,13 @@
                     <input type="submit" name="discount" value="پرتخفیف">
                     <input type="submit" name="sell" value="پرفروش">
                     <input type="submit" name="favorite" value="محبوب ترین">
+                    <div style="display: none">
+                        {{filter.form.brand}}
+                        {{filter.form.size}}
+                        {{filter.form.size}}
+                        {{filter.form.price_1}}
+                        {{filter.form.price_2}}
+                    </div>
                 </form>
             </div>
         <div class="row">
@@ -95,20 +109,20 @@
                     <a class="page-link" href="?page={{priducts.Previous_page_number}}">Previous</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{priducts.Previous_page_number}}">{{priducts.Previous_page_number}}</a>
+                    <a class="page-link" href="?page={{priducts.Previous_page_number}}&{{data}}">{{priducts.Previous_page_number}}</a>
                 </li>
                {%endif%}
                
                <li class="page-item">
-                <a class="page-link" href="?page={{priducts.number}}">{{priducts.number}}</a>
+                <a class="page-link" href="?page={{priducts.number}}&{{data}}">{{priducts.number}}</a>
                </li>
 
                {% if priducts.has_Next%}
                <li class="page-item">
-                <a class="page-link" href="?page={{priducts.Next_page_number}}">{{priducts.Next_page_number}}</a>
+                <a class="page-link" href="?page={{priducts.Next_page_number}}&{{data}}">{{priducts.Next_page_number}}</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{priducts.Next_page_number}}">Next</a>
+                    <a class="page-link" href="?page={{priducts.Next_page_number}}&{{data}}">Next</a>
                 </li>
                {%endif%}
             </ul>
