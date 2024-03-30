@@ -52,7 +52,7 @@ class ProductFilter(django_filters.FilterSet):
         return queryset.order_by(data)
         
     def favorite_filter(self,queryset,name,value):
-        data = 'favorite' if value == 'کم محبوب' else '-favorite'
+        data = 'total_favorite' if value == 'کم محبوب' else '-total_favorite'
         return queryset.order_by(data)    
         
         
