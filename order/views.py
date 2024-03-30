@@ -57,7 +57,7 @@ CallbackURL = 'http://127.0.0.1:8080/order:verify/'
 def send_request(request,order_id, price):
     global amount
     amount = price
-    result = client.service.PaymentVerification(MERCMANT, request.GET['Authority'], amount)
+    result = client.service.PaymentVerification( request.GET['Authority'], amount)
     if result.Status == 100:
         return redirect('https://www.zarinpal.com/pg/Startpay/'+str(result.Authority))
         
