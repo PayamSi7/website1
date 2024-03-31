@@ -175,7 +175,19 @@ class Chart(models.Model):
     def __str__(self):
         return self.name
     
-    
-    
+def priduct_post_saved(sender, instance, created, *args, **kwargs):
+    data = instance
+    if data.change == False:
+        Chart.objects.create(product=data, unit_price=data.unit_price, update=data.update, name=data.name)
+
+post_save.connect(priduct_post_saved, sender=Product)
+
+def variant_post_saved(sender, instance, created, *args, **kwargs):
+    data = instance
+    if data.change == False:
+        Chart.objects.create(product=data, unit_price=data.unit_price, update=data.update, name=data.name, 
+                             size=data.size_variant, color=data.color_variant)
+
+post_save.connect(variant_post_saved, sender=Product)
     
     
