@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.db.models import Avg
 from sorl.thumbnail import ImageField
+#from django_jalali.db import Avg
+from django.db.models.signals import post_save
+
 
 
 class Category(models.Model):
@@ -158,5 +161,21 @@ class Brand(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
         return self.name
+    
+
+class Chart(models.Model):
+    name = models.CharField(max_length=50, nall=True, blank=True)
+    unit_price = models.IntegerField(default=0)
+    update = models.DateTimeField(auto_now=True)
+    color = models.CharField(max_length=50, blank=True,null=True)
+    size = models.CharField(max_length=50, blank=True,null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='pr_update', blank=True,null=True)
+    variant = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='va_update', blank=True,null=True)
+    
+    def __str__(self):
+        return self.name
+    
+    
+    
     
     
