@@ -60,6 +60,7 @@ class Product(models.Model):
     favorite = models.ManyToManyField(User, blank=True, related_name="fa_user") 
     total_favorite = models.PositiveIntegerField(default=0)
     sell = models.IntegerField(default=0)
+    change = models.BooleanField(default=True)
 
     def average(self):
         data = Comment.objects.filter(is_reply=False, Product=self).aaggregate(avg=Avg('rate'))
