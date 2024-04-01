@@ -149,6 +149,42 @@
         {%endfor%}
     </div>
     {%endfor%}
+
+    {% block script %}
+     
+    {% if product.status != 'None' %}
+
+    {% else %}
+    <script>
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [],
+            datasets: [{
+              label: '# of Votes',
+              data: [],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+    {% endif %}
+        
+    {% endblock script %}
+    <div class="row">
+        <canvas id="myChart"></canvas>
+    </div>
+
+
     {%endif%}
     {% for tag in similar%}
         <a href="url 'homa:detail' tag.id">

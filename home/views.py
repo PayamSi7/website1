@@ -49,6 +49,7 @@ def All_product(request, slug=None, id= None):
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)
+    update = Chart.objects.filter(product_id=id)
     image = Images.objects.filter(product_id=id)
     comment_form = CommentForm()
     cart_form = CartForm()
