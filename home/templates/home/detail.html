@@ -153,7 +153,28 @@
     {% block script %}
      
     {% if product.status != 'None' %}
-
+    <script>
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [{% for i in update %}{% if variants.id == i.variant_id %}'{{i.update}}'{% endif %}{endfor}],
+            datasets: [{
+              label: '# of Votes',
+              data: [{% for i in update %}{% if variants.id == i.variant_id %}{{i.unit_price}}{% endif %}{endfor}],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
     {% else %}
     <script>
         const ctx = document.getElementById('myChart');
@@ -161,10 +182,10 @@
         new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: [],
+            labels: [{% for i in update %}'{{i.update}}'{endfor}],
             datasets: [{
               label: '# of Votes',
-              data: [],
+              data: [{% for i in update %}'{{i.unit_price}}'{endfor}],
               borderWidth: 1
             }]
           },

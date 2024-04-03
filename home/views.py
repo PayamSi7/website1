@@ -49,6 +49,7 @@ def All_product(request, slug=None, id= None):
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)
+    cahange = Chart.objects.all()
     update = Chart.objects.filter(product_id=id)
     image = Images.objects.filter(product_id=id)
     comment_form = CommentForm()
@@ -78,14 +79,14 @@ def Product_detail(request,id=None):
             variants = Variants.objects.get(id=variant[0].id)
         cont = {'product': product, 'variant': variant, 'variants': variants, 'similar': similar, 'is_like': is_like,
                 'is_unlike': is_unlike, 'comment_form': comment_form,'comment': comment, 'reply_form': reply_form,
-                'image': image, 'cart_form': cart_form, 'is_favorite': is_favorite}
+                'image': image, 'cart_form': cart_form, 'is_favorite': is_favorite,'cahange':cahange}
         return render(request, 'home/detail.html', cont)
 
     else:
         return render(request, 'home/detail.html', {'product': product, 'similar': similar,'is_favorite': is_favorite,
                                                     'is_like': is_like, 'is_unlike': is_unlike, 'comment': comment,
                                                     'comment_form': comment_form, 'reply_form': reply_form,
-                                                    'image': image, 'cart_form': cart_form})
+                                                    'image': image, 'cart_form': cart_form, 'update':update})
 
 
 
