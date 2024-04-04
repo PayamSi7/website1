@@ -60,3 +60,37 @@ def remove_cart(request, ids):
     url = request.META.get('HTTP_REFERER')
     Cart.objects.filter(id=ids).delete()
     return redirect(url)
+
+
+def add_single(request, id):
+    url = request.META.get('HTTP_REFERER')
+    cart = Cart.objects.get(id=id)
+    if cart.product.status == 'None':
+        product =Product.objects.get(id=cart.product.id)
+        if product.amount > cart.quantity:
+            cart.quantity += 1
+        else:
+            messages.success(request, 'این تعداد در انبار موجود نمی باشد' ,'success')
+    else:
+        variants =Variants.objects.get(cart.variant.id)
+        if variants.amount > cart.quantity:
+            cart.quantity += 1
+        else:
+            messages.success(request, 'این تعداد در انبار موجود نمی باشد' ,'success')
+    cart.save()
+    return redirect(url)    
+                  
+def remove_single(request,id):
+    url = request.META.get('HTTP_REFERER')
+    cart = Cart.objects.get(id=id)
+    if cart.quantity > 2:
+        cart.delete()
+    else:
+        cart.quantity -= 1
+        cart.save()
+    return redirect(url)
+        
+        
+        
+        
+        
