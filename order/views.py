@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect
 from .models import *
 from cart.models import Cart
 from .forms import CouponForm
@@ -6,6 +6,9 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.contrib import messages
 from suds import Client
+from django.http import HttpResponse
+from django.utils.crypto import get_random_string
+#import ghasedak
 
 
 def order_detail(request, order_id):
@@ -15,12 +18,13 @@ def order_detail(request, order_id):
 
 
 def order_create(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         form = CouponForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            code = get_random_string(length=8)
             order = Order.objects.created(user_id=request.user.id, email=data['email'], f_name=data['f_name'],
-                                          l_name=['l-name'], address=data['address'])
+                                          l_name=['l-name'], address=data['address'], code=code)
             cart = Cart.objects.filter(user_id=request.user.id)
             for c in cart:
                 ItemOrder.objects.create(order_id=order.id, user_id=request.user.id, product_id=c.product_id,
@@ -72,6 +76,10 @@ def send_request(request,order_id, price):
                 product = Product.objects.get(id=c.product.id)
                 product.sell += c.quantity
                 product.save()
+                code = order.code
+                
+                # gasedak code
+                # gasedak code
             return HttpResponse('error code: '+str(result.Status))
 """
 
