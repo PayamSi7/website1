@@ -153,7 +153,7 @@ class ReplyForm(ModelForm):
 
 class Images(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=25, blank=True, null=True)
+    name = models.CharField(max_length=25, blank=True)
     image = models.ImageField(upload_to='image/', blank=True)
     
     
@@ -165,7 +165,7 @@ class Brand(models.Model):
     
 
 class Chart(models.Model):
-    name = models.CharField(max_length=50, nall=True, blank=True)
+   
     unit_price = models.IntegerField(default=0)
     update = models.DateTimeField(auto_now=True)
     color = models.CharField(max_length=50, blank=True,null=True)

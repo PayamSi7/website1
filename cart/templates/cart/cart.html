@@ -36,6 +36,13 @@ cart
                          {{c.product.total_price}}
                          {%endif%}
                       </td>
+                      <td>
+                      <a href="{% url 'cart:add_single' c.id%}"><i class="fa fa-plus"></i></a>
+                      {{c.quantity}}
+                      <a href="{% url 'cart:remove_single' c.id%}"><i class="fa fa-minus"></i></a>
+                      </td>
+
+
                       <td>{{c.quantity}}</td>
                       <td>
                          {%if c.product.status != 'None'%}

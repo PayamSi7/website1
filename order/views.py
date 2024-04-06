@@ -44,7 +44,7 @@ def coupon(request, order_id):
         order.save()
     return redirect('order:order_detail', order_id)
 
-
+"""
 #part41
 client = Client('#')
 #this line will be delete --{amount = 1000  # Rial / Required}
@@ -52,11 +52,12 @@ description = "توضیحات مربوط به تراکنش را در این قس
 phone = 'YOUR_PHONE_NUMBER'  # Optional
 # Important: need to edit for realy server.
 CallbackURL = 'http://127.0.0.1:8080/order:verify/'
-
+"""
 
 def send_request(request,order_id, price):
     global amount
     amount = price
+    """
     result = client.service.PaymentVerification(amount,description,request.user.email, CallbackURL)
     if result.Status == 100:
         return redirect('https://www.zarinpal.com/pg/Startpay/'+str(result.Authority))
@@ -72,10 +73,11 @@ def send_request(request,order_id, price):
                 product.sell += c.quantity
                 product.save()
             return HttpResponse('error code: '+str(result.Status))
-
+"""
 
 def verify(request):
-    
+    pass
+"""
     if request.GET.get('Status') == 'OK':
         result = client.service.PaymentVerification( request.GET['Authority'], amount)
         if result.Status == 100:
@@ -86,5 +88,5 @@ def verify(request):
             return HttpResponse('Transaction failed: '+str(result.Status))
     else:
         return HttpResponse('Transaction failed or canceled by user')
-
+"""
 

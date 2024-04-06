@@ -8,6 +8,7 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     create = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
+    code = models.CharField(max_length=200, null=True)
     email = models.EmailField()
     f_name = models.CharField(max_length=200)
     l_name = models.CharField(max_length=200)
