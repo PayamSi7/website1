@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from home.models import Product
 from .models import *
 from django.contrib import messages
@@ -91,6 +91,15 @@ def remove_single(request,id):
     return redirect(url)
         
         
+
+def compare(request, id):
+    if request.user.is_authenticated:
+        item = get_object_or_404(Product, id=id)
+        qs = Compare.objects.filter(user_id=request.user.id, Product_id=id)
+        if qs.exists():
+            messages.success(request, 'ok user')
+        else:
+            
         
-        
-        
+    else:
+        pass

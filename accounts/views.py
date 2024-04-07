@@ -136,7 +136,7 @@ def phone_login(request):
         if form.is_valid():
             data = form.changed_data
             global random_code, phone
-            phone_number = f"0{data['phone']}"
+            phone_number = f"0{request.user.product.phone}"
             random_code = randint(1000, 10000)
             # gasedak code
             # gasedak code
