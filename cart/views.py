@@ -99,7 +99,24 @@ def compare(request, id):
         if qs.exists():
             messages.success(request, 'ok user')
         else:
-            
+            Compare.objects.create(user_id=request.user.id, Product_id=item.id, session_key=None)
         
     else:
-        pass
+        item = get_object_or_404(Product, id=id)
+        qs = Compare.objects.filter(user_id=None, Product_id=id, session_key=request.session.session_key)
+        if qs.exists():
+            messages.success(request, 'ok user')
+        else:
+            if not request.session.session_key:
+                request.session.create()
+            Compare.objects.create(user_id=None, Product_id=item.id, session_key=request.session.session_key)
+         
+         
+         
+def show(request):
+    if request.user.is_authenticated:
+        data = Compare.objects.filter(user_id=request.user)
+        return render(request, 'cart/show.html', {'data':data})
+    else:
+        data = Compare.objects.filter(session_key__exact=request.session.session_key, user_id=None)
+        raise render(request, 'cart/show.html', {'data':data})

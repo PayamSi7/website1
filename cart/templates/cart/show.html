@@ -1,0 +1,8 @@
+{{extend 'Base.html'}}
+{{block body}}
+<div class="container">
+{%for item in data%}
+{{item.product.name}}
+{%endfor%}
+</div>
+{{endblock}}
