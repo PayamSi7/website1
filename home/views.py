@@ -44,8 +44,9 @@ def All_product(request, slug=None, id= None):
         paginator = Paginator(page_obj, 3)
         page_num = request.GET.get('page')
         page_obj = paginator.get_page(page_num)
+       # urlencode1 = urlencode(data)
     return render(request, 'home/products.html', {'products': page_obj, 'category': category,'form':form,
-                                                  'min':min, 'max':max, 'filter':filter, 'data':urlencode(data)})
+                                                  'min':min, 'max':max, 'filter':filter})#, 'dataa':urlencode1
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)

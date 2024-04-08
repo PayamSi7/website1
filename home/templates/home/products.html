@@ -95,11 +95,13 @@
                 <h3>{{product.total_price}}</h3>
             {%endif%}
         </div>
-        {%endfor%}
-        <form action="{%url 'cart:comare' product.id%}">
+        <form action="{%url 'cart:compare' product.id%}">
             <input type="text" name="put type="t" name="{{product.name}}" value="{{product.id}}">
             <button type="submit">add</button>
         </form>
+        {%endfor%}
+        
+        
             </div>
             </div>
         </div>

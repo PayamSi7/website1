@@ -93,24 +93,25 @@ def remove_single(request,id):
         
 
 def compare(request, id):
+    url = request.META.get('HTTP_REFERER')
     if request.user.is_authenticated:
         item = get_object_or_404(Product, id=id)
-        qs = Compare.objects.filter(user_id=request.user.id, Product_id=id)
+        qs = Compare.objects.filter(user_id=request.user.id, product_id=id)
         if qs.exists():
             messages.success(request, 'ok user')
         else:
-            Compare.objects.create(user_id=request.user.id, Product_id=item.id, session_key=None)
+            Compare.objects.create(user_id=request.user.id, product_id=item.id, session_key=None)
         
     else:
         item = get_object_or_404(Product, id=id)
-        qs = Compare.objects.filter(user_id=None, Product_id=id, session_key=request.session.session_key)
+        qs = Compare.objects.filter(user_id=None, product_id=id, session_key=request.session.session_key)
         if qs.exists():
             messages.success(request, 'ok user')
         else:
             if not request.session.session_key:
                 request.session.create()
-            Compare.objects.create(user_id=None, Product_id=item.id, session_key=request.session.session_key)
-         
+            Compare.objects.create(user_id=None, product_id=item.id, session_key=request.session.session_key)
+    return redirect(url)
          
          
 def show(request):

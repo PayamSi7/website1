@@ -9,7 +9,7 @@ urlpatterns = [
     path('add_single/<int:id>', views.add_single,name='add_single'),
     path('remove_single/<int:id>', views.remove_single,name='remove_single'),
     path('compare/<int:id>', views.compare,name='compare'),
-     path('show/', views.show,name='show'),
+    path('show/', views.show,name='show'),
 ]
 
 
