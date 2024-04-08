@@ -62,7 +62,7 @@ class Product(models.Model):
     sell = models.IntegerField(default=0)
     change = models.BooleanField(default=True)
     view = models.ManyToManyField(User, blank=True, related_name="product_view")
-    count_view = models.models.PositiveIntegerField(default=0)
+    count_view = models.PositiveIntegerField(default=0)
     def average(self):
         data = Comment.objects.filter(is_reply=False, Product=self).aaggregate(avg=Avg('rate'))
         star = 0
