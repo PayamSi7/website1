@@ -61,7 +61,8 @@ class Product(models.Model):
     total_favorite = models.PositiveIntegerField(default=0)
     sell = models.IntegerField(default=0)
     change = models.BooleanField(default=True)
-
+    view = models.ManyToManyField(User, blank=True, related_name="product_view")
+    count_view = models.models.PositiveIntegerField(default=0)
     def average(self):
         data = Comment.objects.filter(is_reply=False, Product=self).aaggregate(avg=Avg('rate'))
         star = 0
@@ -111,11 +112,11 @@ class Variants(models.Model):
     @property
     def total_price(self):
         if not self.discount:
-            return self.unit_price
+            total_price = self.unit_price
         elif self.discount:
-            total = (self.discount * self.unit_price)/100
-            return int(self.unit_price - total)
-        return self.total_price
+            total = (self.discount * self.unit_price)/100 
+            total_price = int(self.unit_price - total)
+        return total_price
 
     def get_absolute_url(self):
         return reverse('home:detail', args=[self.id])
@@ -191,4 +192,13 @@ def variant_post_saved(sender, instance, created, *args, **kwargs):
 
 post_save.connect(variant_post_saved, sender=Product)
     
+
+class View(models.Model):
+    ip = models.CharField(max_length=200, blank=True, null=True)
+    Product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    create = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.product.name
+       
     

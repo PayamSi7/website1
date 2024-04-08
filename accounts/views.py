@@ -5,7 +5,7 @@ from order.models import ItemOrder
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Profile
+from .models import *
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy, reverse
-
+from home.models import *
 class EmailToken(PasswordResetTokenGenerator):
     def _make_hash_value(self, user: AbstractBaseUser, timestamp: int):
         return (text_type(user.is_active)+text_type(user.id)+text_type(user.timestamp))
@@ -173,6 +173,9 @@ def history(request):
     return render(request,'account/history.html',{'data':data } )
 
 
+def product_view(request):
+    product = Product.objects.filter(view=request.user.id)
+    return render(request,'account/product_view.html',{'product':product})
         
 class ResetPassword(auth_views.PasswordResetView):
     template_name ='accounts:reset.html'

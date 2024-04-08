@@ -1,0 +1,9 @@
+{%extend 'Base.html'%}
+
+{%block body%}
+<div class="container">
+{%for info in product%}
+<p>{{info.name}}</p><br>
+{%endfor%}
+</div>
+{%endblock%}

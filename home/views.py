@@ -50,6 +50,14 @@ def All_product(request, slug=None, id= None):
 
 def Product_detail(request,id=None):
     product = get_object_or_404(Product, id=id)
+    ip = request.META.get('REMOTE_ADDR')
+    view = View.objects.filter(product_id=product.id,ip=ip)
+    if not view.exists():
+        view.objects.create(product_id=product.id,ip=ip)
+        product.count_view+=1
+        product.save()
+    if request.user.is_authenticated():
+        product.view.add(request.user.user)
     cahange = Chart.objects.all()
     update = Chart.objects.filter(product_id=id)
     image = Images.objects.filter(product_id=id)
