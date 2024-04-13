@@ -176,7 +176,13 @@ def history(request):
 def product_view(request):
     product = Product.objects.filter(view=request.user.id)
     return render(request,'account/product_view.html',{'product':product})
-        
+       
+"""
+class RegisterEmail(auth_views.RegisterEmail):
+    template_name = 'account/register_email.html'      
+    success_url = reverse_lazy('accounts:reset_done')
+    email_template_name = 'accounts:link.html'
+""" 
 class ResetPassword(auth_views.PasswordResetView):
     template_name ='accounts:reset.html'
     success_url = reverse_lazy('accounts:reset_done')
