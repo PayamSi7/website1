@@ -22,7 +22,7 @@ class UserRegisterForm(forms.Form):
         if User.objects.filter(username=user).exists():
             raise forms.ValidationError('user exist')
         else:
-            return User
+            return user
     def clean_email_address(self):
         email = self.cleaned_data['email_address']
         if User.objects.filter(email=email).exists():
