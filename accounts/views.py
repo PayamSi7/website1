@@ -21,7 +21,10 @@ from six import text_type
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy, reverse
 from home.models import *
-class EmailToken(PasswordResetTokenGenerator):
+from rest_framework import serilaizers
+
+
+ class EmailToken(PasswordResetTokenGenerator):
     def _make_hash_value(self, user: AbstractBaseUser, timestamp: int):
         return (text_type(user.is_active)+text_type(user.id)+text_type(user.timestamp))
     
