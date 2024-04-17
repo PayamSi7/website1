@@ -9,11 +9,25 @@ from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from .filters import ProductFilter
 from urllib.parse import urlencode
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from serializers import *
 
 
+
+
+@api_view(['GET', 'POST'])
 def home(request):
     category = Category.objects.filter(sub_cat=True)
-    return render(request, 'home/home.html', {'category': category})
+    if request.method == 'GET':
+        serializers = CategorySerializer(category)
+        return Response(serializers.data)
+    elif request.method == 'POST':
+        serializers = CategorySerializer(data=request.data)
+        serializers.is_valid(raise_exceptions=True)
+        serializers.save()
+        return Response(serializers.data, status=status.HTTP_201_CREATED)
+    #return render(request, 'home/home.html', {'category': category})
 
 def All_product(request, slug=None, id= None):
     products = Product.objects.all()

@@ -21,15 +21,16 @@ from six import text_type
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy, reverse
 from home.models import *
-from rest_framework import serilaizers
+from rest_framework.decorators import api_view
+from rest_framework.response import responses
 
-
- class EmailToken(PasswordResetTokenGenerator):
+class EmailToken(PasswordResetTokenGenerator):
     def _make_hash_value(self, user: AbstractBaseUser, timestamp: int):
         return (text_type(user.is_active)+text_type(user.id)+text_type(user.timestamp))
     
 email_generator = EmailToken()
 
+@api_view()
 def user_register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
