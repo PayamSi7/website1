@@ -12,10 +12,13 @@ from urllib.parse import urlencode
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from serializers import *
+from rest_framework import status
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 
 
-
-
+"""
 @api_view(['GET', 'POST'])
 def home(request):
     category = Category.objects.filter(sub_cat=True)
@@ -28,6 +31,15 @@ def home(request):
         serializers.save()
         return Response(serializers.data, status=status.HTTP_201_CREATED)
     #return render(request, 'home/home.html', {'category': category})
+"""
+
+class HomeViewSet(ModelViewSet):
+    queryset = Category.objects.filter(sub_cat=True)
+    serializer_class = CategorySerializer
+    
+    def get_serializer_context(self):
+        return {'request': self.request}
+
 
 def All_product(request, slug=None, id= None):
     products = Product.objects.all()

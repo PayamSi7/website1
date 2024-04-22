@@ -1,10 +1,15 @@
 from django.urls import path
 from . import views
+from rest_framework.routers import DefaultRouterf
+
+   
+router = SimpleRouter()
+router.register('', views.HomeViewSet)
+router.register('products/', views.views.ProductsViewSet)
+   
 app_name = 'home'
 #app_name = namespace
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('products/', views.All_product, name='products'),
     path('detail/<int:id>/', views.Product_detail, name='detail'),
     path('category/<slug>/<int:id>/', views.All_product, name='category'),
     path('like/<int:id>/', views.product_like, name='product_like'),
